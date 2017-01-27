@@ -70,4 +70,32 @@ public class EventTypeTest {
             assertFalse(EventType.isDelete(eventType));
         }
     }
+
+    @Test
+    public void testIsUnknown() throws Exception {
+        List<EventType> writeEventTypes =
+            Arrays.asList(
+                EventType.UNKNOWN,
+                EventType.UNKNOWN_39,
+                EventType.UNKNOWN_40,
+                EventType.UNKNOWN_41,
+                EventType.UNKNOWN_42,
+                EventType.UNKNOWN_43,
+                EventType.UNKNOWN_44,
+                EventType.UNKNOWN_45,
+                EventType.UNKNOWN_46,
+                EventType.UNKNOWN_47,
+                EventType.UNKNOWN_48,
+                EventType.UNKNOWN_49
+            );
+        for (EventType writeEventType : writeEventTypes) {
+            assertTrue(EventType.isUnknown(writeEventType));
+        }
+        EnumSet<EventType> eventTypes = EnumSet.allOf(EventType.class);
+        eventTypes.removeAll(writeEventTypes);
+        for (EventType eventType : eventTypes) {
+            assertFalse(EventType.isUnknown(eventType));
+        }
+    }
+
 }

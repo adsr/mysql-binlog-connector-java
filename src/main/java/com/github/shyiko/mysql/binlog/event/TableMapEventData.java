@@ -28,6 +28,7 @@ public class TableMapEventData implements EventData {
     private byte[] columnTypes;
     private int[] columnMetadata;
     private BitSet columnNullability;
+    private TableMetadataEventData metadataEventData;
 
     public long getTableId() {
         return tableId;
@@ -75,6 +76,21 @@ public class TableMapEventData implements EventData {
 
     public void setColumnNullability(BitSet columnNullability) {
         this.columnNullability = columnNullability;
+    }
+
+    public void setMetadataEventData(TableMetadataEventData metadataEventData, int depth) {
+        this.metadataEventData = metadataEventData;
+        if (depth == 0) {
+            metadataEventData.setTableMapEventData(this, depth + 1);
+        }
+    }
+
+    public boolean hasMetadataEventData() {
+        return metadataEventData != null;
+    }
+
+    public TableMetadataEventData getMetadataEventData() {
+        return metadataEventData;
     }
 
     @Override

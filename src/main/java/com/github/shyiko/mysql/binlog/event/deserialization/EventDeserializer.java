@@ -91,7 +91,9 @@ public class EventDeserializer {
         eventDataDeserializers.put(EventType.QUERY,
                 new QueryEventDataDeserializer());
         eventDataDeserializers.put(EventType.TABLE_MAP,
-                new TableMapEventDataDeserializer());
+            new TableMapEventDataDeserializer());
+        eventDataDeserializers.put(EventType.TABLE_METADATA,
+            new TableMetadataEventDataDeserializer());
         eventDataDeserializers.put(EventType.XID,
                 new XidEventDataDeserializer());
         eventDataDeserializers.put(EventType.WRITE_ROWS,

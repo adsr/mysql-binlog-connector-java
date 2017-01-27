@@ -21,8 +21,17 @@ import java.io.IOException;
 
 /**
  * @author <a href="mailto:pprasse@actindo.de">Patrick Prasse</a>
+ * @author <a href="https://github.com/adsr">Adam Saponara</a>
  */
 public class GtidEventDataDeserializer implements EventDataDeserializer<GtidEventData> {
+    private String[] byteToHex;
+
+    public GtidEventDataDeserializer() {
+        byteToHex = new String[256];
+        for (int i = 0; i < 256; i++) {
+            byteToHex[i] = String.format("%02x", i);
+        }
+    }
 
     @Override
     public GtidEventData deserialize(ByteArrayInputStream inputStream) throws IOException {
@@ -42,9 +51,9 @@ public class GtidEventDataDeserializer implements EventDataDeserializer<GtidEven
     }
 
     private String byteArrayToHex(byte[] a, int offset, int len) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(len * 2);
         for (int idx = offset; idx < (offset + len) && idx < a.length; idx++) {
-            sb.append(String.format("%02x", a[idx] & 0xff));
+            sb.append(byteToHex[a[idx] & 0xff]);
         }
         return sb.toString();
     }
